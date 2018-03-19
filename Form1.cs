@@ -16,7 +16,6 @@ namespace Snake
     {
         int playSpeed = 150;
         System.Timers.Timer Frame_Timer;
-        PictureBox lbl = new PictureBox();
         List<SnakePart> _Snake = new List<SnakePart>();
         Nyam n;
         Direction dir;
