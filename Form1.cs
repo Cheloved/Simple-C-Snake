@@ -16,6 +16,7 @@ namespace Snake
     {
         int playSpeed = 150;
         System.Timers.Timer Frame_Timer;
+        PictureBox lbl = new PictureBox();
         List<SnakePart> _Snake = new List<SnakePart>();
         Nyam n;
         Direction dir;
@@ -46,7 +47,21 @@ namespace Snake
             MoveOthers();
             if(_Snake[0].Location == n.Location)
             {
-                n.Respawn();
+                while (true)
+                {
+                    n.Respawn();
+                    int times = 0;
+                    for (int i = 0; i < _Snake.Count; i++)
+                    {
+                        if (n.Location == _Snake[i].Location)
+                        {
+                            times++;
+                            break;
+                        }
+                    }
+                    if (times == 0)
+                        break;
+                }
                 addPart();
             }
             for(int i = 1; i < _Snake.Count; i++)
@@ -70,6 +85,8 @@ namespace Snake
         {
             if (e.KeyCode == Keys.Escape)
                 Application.Exit();
+            if (e.KeyCode == Keys.R)
+                Application.Restart();
             if(e.KeyCode == Keys.W)
                 dir = Direction.Up;
             if (e.KeyCode == Keys.S)
@@ -139,6 +156,7 @@ namespace Snake
             Random random = new Random();
             int x = random.Next(0, 11) * 20;
             int y = random.Next(0, 11) * 20;
+            
             this.Invoke((MethodInvoker)delegate
             {
                 this.Location = new Point(x, y);
